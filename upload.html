@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <input type="file" id="file" name="file"><br>
+        <input type="file" id="file2" name="file2"><br>
+        <button onclick="uploadFile()">Upload</button>
+        <script>
+            function uploadFile(){
+                let file = document.getElementById("file").files[0];
+                let file2 = document.getElementById("file2").files[0];
+                let formData = new FormData();
+                formData.append("filec",file);
+                formData.append("filecc",file2);
+                formData.append("namec","good");
+
+                 let xhhtp = new XMLHttpRequest();
+                    xhhtp.onreadystatechange = function(){
+                        if (this.readyState == 4 && this.status == 200){
+                            let res = JSON.parse(this.responseText);
+                            if(res.status==1){
+                                alert(res.message)
+                            }
+                        }
+                    }
+                    xhhtp.open("POST", '/upload', true); 
+                    xhhtp.send(formData);
+            }
+        </script>
+    </body>
+</html>
